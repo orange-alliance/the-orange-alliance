@@ -213,7 +213,6 @@ export class TheOrangeAllianceComponent implements OnInit {
   @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.showSearch = false;
   }
-
   navToTopSearch(): void {
     const query = this.search ? this.search.trim() : '';
     if (this.teamSearchResults.length > 0) {

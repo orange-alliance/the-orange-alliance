@@ -68,6 +68,8 @@ export class AccountComponent implements OnInit {
       this.activeTab = 4;
     } else if (this.router.url === '/account/retriever') {
       this.activeTab = 5;
+    } else if (this.router.url === '/account/pending-data') {
+      this.activeTab = 6;
     } else {
       this.activeTab = 0;
     }

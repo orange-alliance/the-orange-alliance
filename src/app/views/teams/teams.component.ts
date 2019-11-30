@@ -1,13 +1,13 @@
 import { WINDOW } from '@ng-toolkit/universal';
-import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
 import Team from '../../models/Team';
 import Region from '../../models/Region';
-import {isPlatformBrowser, Location} from '@angular/common';
 
 const TEAMS_PER_PAGE = 500;
 

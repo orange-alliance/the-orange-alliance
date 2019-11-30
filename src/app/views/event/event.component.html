@@ -60,6 +60,8 @@
             <mdc-tab (click)="changeUrlNoRoute('insights')" label="{{ 'pages.event.subpages.insights.title' | translate }}" [class.d-none]="!qualInsights && !elimInsights"></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('media')" label="{{ 'pages.event.subpages.for-participants.title' | translate }}" [class.d-none]="totalmedia === 0"></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('admin')" label="{{ 'pages.event.subpages.admin.title' | translate }}" [class.d-none]="!admin" [disabled]="!emailVerified"></mdc-tab>
+            <mdc-tab *ngIf="!!user" (click)="changeUrlNoRoute('add-stream')" label="{{ 'pages.event.subpages.add_stream.title' | translate }}" [class.d-none]="admin" [disabled]="!emailVerified"></mdc-tab>
+            <mdc-tab *ngIf="!!user" (click)="changeUrlNoRoute('add-data')" label="{{ 'pages.event.subpages.add_data.title' | translate }}" [class.d-none]="admin" [disabled]="!emailVerified"></mdc-tab>
           </mdc-tab-scroller>
         </mdc-tab-bar>
         <div class="mt-4">
@@ -70,7 +72,9 @@
           <toa-event-awards *ngIf="tabs.activeTabIndex === 4" [event]="eventData"></toa-event-awards>
           <toa-event-insights *ngIf="tabs.activeTabIndex === 5" [event]="eventData" [matches]="eventData.matches" [qualInsights]="qualInsights" [elimInsights]="elimInsights"></toa-event-insights>
           <toa-event-for-participants *ngIf="tabs.activeTabIndex === 6" [event]="eventData" [media]="media"></toa-event-for-participants>
-          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 7 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0 && !qualInsights && !elimInsights))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin" [league]="eventLeague" [leagues]="allLeagues"></toa-event-admin>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 7 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0 && !qualInsights && !elimInsights))" [user]="user" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin" [league]="eventLeague" [leagues]="allLeagues"></toa-event-admin>
+          <toa-event-add-stream *ngIf="!admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 8 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0 && !qualInsights && !elimInsights))" [user]="user" [eventKey]="eventData.eventKey" [eventData]="eventData"></toa-event-add-stream>
+          <toa-event-add-data *ngIf="!admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 9 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0 && !qualInsights && !elimInsights))" [user]="user" [eventKey]="eventData.eventKey" [eventData]="eventData"></toa-event-add-data>
         </div>
       </mdc-card>
     </div>

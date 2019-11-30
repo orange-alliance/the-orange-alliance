@@ -1,0 +1,16 @@
+<div class="outline-card">
+  <div mdcHeadline5 class="black">{{ 'pages.account.subpages.send_key.title' | translate }}</div>
+  
+  <div class="d-flex">
+    <div class="w-100 me-2">
+      <p>{{ 'pages.account.subpages.send_key.instructions' | translate }}</p>
+    </div>
+    <div class="w-100 me-2">
+      <mdc-text-field #user_email dense class="w-100" [label]="'pages.account.subpages.send_key.user_email' | translate"></mdc-text-field>
+      <mdc-text-field #stream_url dense class="w-100 mt-2" [label]="'pages.account.subpages.send_key.user_email' | translate"></mdc-text-field>
+    </div>
+    <button mdc-button primary class="mt-3" (click)="sendStreamKey()">{{ 'pages.event.subpages.add_stream.request_key.send_request' | translate }}</button>
+  </div>
+  <br/>
+  
+</div> 

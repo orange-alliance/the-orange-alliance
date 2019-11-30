@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MdcCheckbox, MdcSnackbar, MdcTextField } from '@angular-mdc/web';
+import { Component, Input, OnInit } from '@angular/core';
+import { MdcSnackbar } from '@angular-mdc/web';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../../../app-bar.service';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
@@ -11,7 +12,6 @@ import Region from '../../../../models/Region';
 import Event from '../../../../models/Event';
 import User from '../../../../models/User';
 import League from '../../../../models/League';
-import {FormControl, FormGroup, ValidationErrors} from '@angular/forms';
 
 @Component({
   selector: 'toa-account-create-event',

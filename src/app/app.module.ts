@@ -29,6 +29,7 @@ import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
+import { RegionsComponent } from './views/regions/regions.component';
 import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
 
@@ -70,6 +71,13 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LeagueCreatorComponent } from './views/account/subpages/league-creator/league-creator.component';
 import { LeagueItemComponent } from './components/league/league.item.component';
 import { ServerItemComponent } from './components/server/server.item.component';
+import { SafePipe } from './safe.pipe';
+import { HttpErrorHandler } from './http-error-handler.service';
+import { EventAddStreamComponent } from './views/event/subviews/event-add-stream/event-add-stream.component';
+import { PendingDataComponent } from './components/pending-data/pending-data.component';
+import { ManagePendingDataComponent } from './views/account/subpages/manage-pending-data/manage-pending-data.component';
+import { SendStreamKeyComponent } from './views/account/subpages/send-stream-key/send-stream-key.component';
+import { EventAddDataComponent } from './views/event/subviews/event-add-data/event-add-data.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -89,6 +97,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LoginComponent,
     RegisterComponent,
     EventsComponent,
+    RegionsComponent,
     TeamsComponent,
     EventComponent,
     AboutComponent,
@@ -124,6 +133,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CircularPercentageComponent,
     Insights1819Component,
     LeagueCreatorComponent,
+    SafePipe,
+    EventAddStreamComponent,
+    PendingDataComponent,
+    ManagePendingDataComponent,
+    SendStreamKeyComponent,
+    EventAddDataComponent,
     ServerItemComponent
   ],
   entryComponents: [
@@ -156,9 +171,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl}}],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl}}, HttpErrorHandler],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }

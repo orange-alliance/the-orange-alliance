@@ -31,6 +31,7 @@
           <mdc-tab (click)="changeUrlNoRoute('users')" label="Users" [class.d-none]="user.level < 6"></mdc-tab>
           <mdc-tab (click)="changeUrlNoRoute('cache')" [label]="'pages.account.dump_cache.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
           <mdc-tab (click)="changeUrlNoRoute('retriever')" label="Retriever" [class.d-none]="user.level < 6"></mdc-tab>
+          <mdc-tab (click)="changeUrlNoRoute('pending-data')" [label]="'pages.account.division_tab.manage_pending_data' | translate" [class.d-none]="user.level < 6"></mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
     </div>
@@ -152,6 +153,7 @@
       <toa-account-users [class.d-none]="tabs.activeTabIndex !== 3" [user]="user"></toa-account-users>
       <toa-account-cache [class.d-none]="tabs.activeTabIndex !== 4" [user]="user"></toa-account-cache>
       <toa-account-retriever [class.d-none]="tabs.activeTabIndex !== 5" [user]="user"></toa-account-retriever>
+      <toa-account-manage-pending-data [class.d-none]="tabs.activeTabIndex !== 6" [user]="user"></toa-account-manage-pending-data>
     </div>
   </div>
 </div>

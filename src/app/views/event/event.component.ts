@@ -13,13 +13,13 @@ import { DialogEventFavorite } from '../../dialogs/event-favorite/dialog-event-f
 import { MdcDialog, MdcMenuSelectedEvent, MdcSnackbar } from '@angular-mdc/web';
 import { CookieService } from 'ngx-cookie-service';
 import { User, messaging } from 'firebase/app';
+import { Location } from '@angular/common';
 import Event from '../../models/Event';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
 import Alliance from '../../models/Alliance';
 import EventInsights from '../../models/Insights';
 import League from '../../models/League';
-import {Location} from '@angular/common';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -67,7 +67,7 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
     this.currentUrl = this.router.url.split('/')[this.router.url.split('/').length - 1];
-    this.possiblePages = ['rankings', 'matches', 'teams', 'alliances', 'awards', 'insights', 'media', 'admin'];
+    this.possiblePages = ['rankings', 'matches', 'teams', 'alliances', 'awards', 'insights', 'media', 'admin', 'add-stream', 'add-data'];
     if (this.eventKey) {
 
       this.auth.authState.subscribe(user => {
@@ -289,6 +289,16 @@ export class EventComponent implements OnInit {
           } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
           } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
           break;
+        case 'add-stream':
+          if (!this.admin) { this.activeTab = 8;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'add-data':
+          if (!this.admin) { this.activeTab = 9;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
         default:
           this.activeTab = 0;
           break;
@@ -335,6 +345,8 @@ export class EventComponent implements OnInit {
       case 5: return 'insights';
       case 6: return 'media';
       case 7: return 'admin';
+      case 8: return 'add-stream';
+      case 9: return 'add-data';
       default: return 'rankings';
     }
   }

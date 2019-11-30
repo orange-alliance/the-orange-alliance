@@ -20,7 +20,10 @@ import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
 import {isPlatformBrowser} from '@angular/common';
-import {MdcSelect} from '@angular-mdc/web';
+import { MediaService } from '../../media.service';
+//import { HttpHeaderResponse } from '@angular/common/http';
+//import {MdcSelect} from '@angular-mdc/web';
+//import { request } from 'https';
 
 @Component({
   selector: 'toa-team',
@@ -39,20 +42,40 @@ export class TeamComponent implements OnInit {
   view_type: string;
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
+  images: any = {};
+  
+  imageLink: string;
+  imageTitle: string;
+  logoLink: string;
+  cadLink: string;
+  cadTitle: string;
+  youtubeLink: string;
+  youtubeTitle: string;
 
   user: TOAUser = null;
   favorite: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject(WINDOW) private window: Window, private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
-              public cloud: CloudFunctions, public auth: AngularFireAuth, private appBarService: AppBarService) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object, 
+    @Inject(WINDOW) private window: Window, 
+    private ftc: FTCDatabase, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private app: TheOrangeAllianceGlobals,
+    public cloud: CloudFunctions, 
+    public auth: AngularFireAuth, 
+    private appBarService: AppBarService,
+    private mediaService: MediaService) {
+
     this.teamKey = this.route.snapshot.params['team_key'];
     this.select('results');
+
   }
 
   public ngOnInit(): void {
     this.auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
-        this.cloud.getShortUserData(user).then((userData: TOAUser) => {
+        this.cloud.getUserData(user).then((userData: TOAUser) => {
           this.user = userData;
           userData.firebaseUser = user;
           this.favorite = userData.favoriteTeams.includes(this.teamKey);
@@ -81,11 +104,11 @@ export class TeamComponent implements OnInit {
           });
         }
         if (this.team.teamNameShort !== null) {
-          this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
-          this.appBarService.setTitle('#' + this.team.teamNumber + ' ' + this.team.teamNameShort, true);
+          this.app.setTitle(`${this.team.teamNameShort} (${this.team.teamNumber})`);
+          this.appBarService.setTitle(`#${this.team.teamNumber} ${this.team.teamNameShort}`, true);
         } else {
-          this.app.setTitle('Team ' + this.team.teamNumber);
-          this.appBarService.setTitle('Team #' + this.team.teamNumber, true);
+          this.app.setTitle(`${Team} ${this.team.teamNumber}`);
+          this.appBarService.setTitle(`Team # ${this.team.teamNumber}`, true);
         }
         this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber } from ${team.city}, ${(team.stateProv ? team.stateProv + ', ' : '') + team.country }.`);
       } else {
@@ -228,9 +251,9 @@ export class TeamComponent implements OnInit {
     const codeTwo = seasonKey.toString().substring(2, 4);
 
     if (description) {
-      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+      return `20${codeOne}/${codeTwo} - ${description}`;
     } else {
-      return '20' + codeOne + '/' + codeTwo;
+      return `20${codeOne}/${codeTwo}`;
     }
   }
 
@@ -291,5 +314,83 @@ export class TeamComponent implements OnInit {
       eventAction: action,
       eventValue: 10
     });
+  }
+
+  handleImage(e, type: string) {
+    const image = e.target.files[0];
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.images[type] = {
+          'filename': image.name,
+          'base64': btoa(reader.result.toString())
+        };
+      };
+      reader.readAsBinaryString(image);
+    }
+  }
+
+
+  sendReveal() {
+    const mediaType = 3;
+    if (this.youtubeLink !== "") {
+
+      const requestBody = {
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": this.youtubeTitle,
+        "media_link": this.youtubeLink
+      }
+
+      console.log(requestBody);
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);      
+    }
+    
+  }
+
+  sendRoboPic() {
+    const mediaType = 4;
+    if (this.imageLink !== "") {
+      const requestBody = {
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": this.imageTitle,
+        "media_link": this.imageLink
+      }
+      console.log(requestBody);
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);
+    }
+  }
+
+  sendTeamLogo() {
+    const mediaType = 5;
+    if (this.imageLink !== "") {
+      const requestBody = {
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": `${this.team.teamNameShort}_logo`,
+        "media_link": this.logoLink
+      }
+      console.log(requestBody);
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);
+    }
+  }
+
+  sendCad() {
+    const mediaType = 1;
+    if (this.cadLink !== "") {
+      const requestBody = {
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": this.cadTitle,
+        "media_link": this.cadLink
+      }
+      console.log(requestBody);
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);
+    }
   }
 }

@@ -1,0 +1,151 @@
+<h2 class="page-title mb-4">{{ 'general.regions' | translate }}</h2>
+
+ 
+  <div class="mt-3 row" *ngIf="eventData && eventData.matches"> 
+    <div class="col-12">
+      <mdc-card class="toa-card">
+        <div class="mt-4">
+          <toa-event-insights [event]="eventData" [matches]="eventData.matches" [qualInsights]="qualInsights" [elimInsights]="elimInsights"></toa-event-insights>
+        </div>
+      </mdc-card>
+    </div>
+  </div>
+ 
+ <div class="row w-100 mt-3">
+  <div class="col-12">
+  
+    <mdc-card class="toa-card overflow" *ngIf="weeks">
+      <div class="toa-card-header">{{ 'pages.events.filter' | translate }}</div>
+
+      <mdc-list-divider></mdc-list-divider>
+      <div class="p-3 row">
+
+        <div mdcMenuSurfaceAnchor #regionAnchor *ngIf="currentRegion && regions && regions.length > 0"
+             class="toa-dropdown">
+          <button mdc-button (click)="regionDropdown.open = !regionDropdown.open">
+            {{ currentRegion.description || getRegionString(currentRegion.regionKey) }}
+            <mdc-icon>arrow_drop_down</mdc-icon>
+          </button>
+          <mdc-menu #regionDropdown [anchorElement]="regionAnchor" (selected)="onRegionChange($event)"
+                    anchorCorner="bottomStart">
+            <mdc-list dense>
+              <mdc-list-item *ngFor="let region of regions" [disabled]="region.regionKey === currentRegion.regionKey">
+                {{ getRegionString(region.regionKey, region.description) }}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
+        </div>
+      </div>
+
+      <mdc-list-divider></mdc-list-divider>
+
+      <button mdc-button (click)="clearFilter()">{{ 'pages.regions.clear_filter' | translate }}</button>
+    </mdc-card>
+	
+  </div>
+</div>
+
+
+
+<div class="mt-5 row" *ngIf="availableWeeks && availableWeeks.length > 0">
+  <div class="col-12">
+    <mdc-card class="toa-card">
+      <mdc-tab-bar #tabbar class="w-100">
+        <mdc-tab-scroller>
+          <mdc-tab *ngFor="let week of availableWeeks; let i = index" [label]="getWeekName(week.weekKey)" (click)="select(i)">
+            <span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span>
+          </mdc-tab>
+        </mdc-tab-scroller>
+      </mdc-tab-bar>
+      <div class="mt-4">
+        <div *ngFor="let week of availableWeeks; let i = index">
+          <div *ngIf="isSelected(i)">
+            <div class="pt-0 pl-3 pr-3">
+              <h1 mdcHeadline6>{{ getWeekName(week.weekKey) }}<h1 mdcSubtitle1>{{ week.startDate | date :  "mediumDate"}} - {{ week.endDate | date :  "mediumDate" }}</h1></h1>
+            </div>
+
+            <mdc-list-divider></mdc-list-divider>
+
+            <mdc-list [twoLine]="true">
+              <toa-event-item *ngFor="let event of getEventsByWeek(week)" [event]="event"></toa-event-item>
+            </mdc-list>
+          </div>
+        </div>
+      </div>
+    </mdc-card>
+  </div>
+</div>
+
+
+<div class="mt-5 text-center" *ngIf="availableWeeks && availableWeeks.length === 0">
+  <img src="../../../assets/imgs/empty-icon.svg" height="110" class="mb-3">
+  <div mdcHeadline6>{{ 'no_data.events_filter' | translate }}</div>
+  <div mdcBody1>{{ 'no_data.events_filter_long' | translate }}</div>
+</div>
+
+<div class="row w-100 mt-3">
+  <div class="col-12">
+    <mdc-card class="toa-card p-3" *ngIf="currentTeams">
+        <mdc-text-field label="{{ 'pages.teams.filter' | translate }}" [(ngModel)]="query" (input)="getTeams()" [fullwidth]="true"></mdc-text-field>
+
+        <div class="row mt-2" *ngIf="currentTeams && currentTeams.length > 0">
+          <div class="col-12 col-md-6">
+            <mdc-list-group>
+              <mdc-list>
+                <div *ngFor="let team of leftSide">
+                  <toa-team-item [team]="team"></toa-team-item>
+                </div>
+              </mdc-list>
+            </mdc-list-group>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <mdc-list-group>
+              <mdc-list>
+                <div *ngFor="let team of rightSide">
+                  <toa-team-item [team]="team"></toa-team-item>
+                </div>
+              </mdc-list>
+            </mdc-list-group>
+          </div>
+          <div mdcSubtitle1 class="pl-3 pr-3 pt-1">({{ 'pages.teams.results' | translate: {'results': currentTeams.length} }})</div>
+        </div>
+
+        <div *ngIf="currentTeams && currentTeams.length <= 0" class="row mt-4">
+          <div class="col-12 text-center">
+            <span><i>{{ 'no_data.teams_long' | translate }}</i></span>
+          </div>
+        </div>
+    </mdc-card>
+  </div>
+</div>
+
+
+<!--
+<button mdc-fab position='bottomRight' class="toa-fab" data-toggle="modal" data-target="#filterModal">
+  <mdc-icon svgIcon="filter-outline"></mdc-icon>
+</button>
+
+&lt;!&ndash; Modal &ndash;&gt;
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div mdcDialogSurface class="modal-content border-0 ru">
+      <mdc-dialog-title>Filter Options</mdc-dialog-title>
+      <mdc-dialog-content>
+&lt;!&ndash;
+        <mdc-chip-set filter>
+          <mdc-chip *ngFor="let region of regions">
+            <mdc-chip-text>{{ region.description }}</mdc-chip-text>
+          </mdc-chip>
+        </mdc-chip-set>
+&ndash;&gt;
+
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton data-dismiss="modal">Cancel</button>
+        <button mdcDialogButton default data-dismiss="modal">Ok</button>
+      </mdc-dialog-actions>
+    </div>
+  </div>
+</div>
+-->

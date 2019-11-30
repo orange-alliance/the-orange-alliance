@@ -1,0 +1,25 @@
+<mdc-card class="toa-card overflow" *ngIf="user != null">
+    <h3>{{'pages.event.subpages.add_data.title' | translate }}</h3>
+    <div class="outline-card">
+      <div mdcHeadline5 class="black pb-4">{{'pages.event.subpages.add_data.pits_map' | translate }}</div>
+      <mdc-text-field dense label="{{'pages.event.subpages.add_data.pits_link' | translate}}" [(ngModel)]="pitsLink"></mdc-text-field>
+      <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendPitsMap()">{{'pages.team.add_team_data.submit' | translate }}</button>
+    </div>
+    <div class="outline-card">
+      <div mdcHeadline5 class="black pb-4">{{'pages.event.subpages.add_data.schedule' | translate }}</div>
+      <mdc-text-field dense label="{{'pages.event.subpages.add_data.schedule_link' | translate}}" [(ngModel)]="scheduleLink"></mdc-text-field>
+      <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendSchedule()">{{'pages.team.add_team_data.submit' | translate }}</button>
+      <!-- <button mdc-button primary class="ml-2 mr-2" style="height: 48px"  *ngIf="!uploadingVideos && showConfirm">{{ 'pages.team.add_team_data.submit' | translate }}</button> -->
+    </div>
+    <div class="outline-card">
+      <div mdcHeadline5 class="black pb-4">{{'pages.event.subpages.add_data.venue_map' | translate }}</div>
+      <mdc-text-field dense label="{{'pages.event.subpages.add_data.venue_link' | translate}}" [(ngModel)]="venueLink"></mdc-text-field>
+      <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVenueMap()">{{'pages.team.add_team_data.submit' | translate }}</button>
+    </div>
+    <div class="outline-card"> 
+      <div mdcHeadline5 class="black pb-4">{{'pages.event.subpages.add_data.event_photo' | translate }}</div>
+      <mdc-text-field dense label="{{'pages.event.subpages.add_data.image_title' | translate}}" [(ngModel)]="imageTitle"></mdc-text-field>
+      <mdc-text-field dense label="{{'pages.event.subpages.add_data.photo_link' | translate}}" [(ngModel)]="imageLink"></mdc-text-field>
+      <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendEventPhoto()">{{'pages.team.add_team_data.submit' | translate }}</button>
+    </div>
+  </mdc-card>

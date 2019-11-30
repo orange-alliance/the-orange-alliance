@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'firebase/app';
 import TOAUser from '../models/User';
-import {rejects} from 'assert';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { rejects } from 'assert';
 
+import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 export enum Service {
   Dev = 'Dev',
   Live = 'Live',
@@ -15,9 +18,12 @@ export class CloudFunctions {
 
   private baseUrl = 'https://functions.theorangealliance.org';
   // private baseUrl = 'http://localhost:5000/the-orange-alliance/us-central1/requireValidations'; // Tests Only
+  private handleError: HandleError;
 
-  constructor(private http: HttpClient) {
-
+  constructor(
+    private http: HttpClient,
+    httpErrorHandler: HttpErrorHandler) {
+      this.handleError = httpErrorHandler.createHandleError('CloudFunctions');
   }
 
   public getUserData(user: User, type?: string): Promise<TOAUser> {
@@ -306,12 +312,14 @@ export class CloudFunctions {
     });
   }
 
-  public addMediaToPending(user: User, mediaData: any): Promise<any> {
+  public addMediaToPending(user: User, mediaData: any, stream = false): Promise<any> {
     let dataHeader;
-    if (mediaData.team_key !== undefined && mediaData.event_key === undefined) {
-      dataHeader = 'team';
-    } else if (mediaData.team_key === undefined && mediaData.event_key !== undefined) {
+    if (stream) {
+      dataHeader = 'stream';
+    } else if (mediaData.event_key) {
       dataHeader = 'event';
+    } else if (mediaData.team_key) {
+      dataHeader = 'team';
     } else {
       return new Promise<any>( ((resolve, reject) => {reject('No Team or Event is Defined! (Or both are defined!)')}))
     }
@@ -324,24 +332,6 @@ export class CloudFunctions {
         });
 
         this.http.post(this.baseUrl + '/addMediaToPending', mediaData, {headers: headers}).subscribe((data: any) => {
-          resolve(data);
-        }, (err: any) => {
-          reject(err);
-        });
-      }).catch((err: any) => {
-        reject(err);
-      });
-    });
-  }
-
-  public getPendingMedia(user: User): Promise<any> {
-    return new Promise<any[]>((resolve, reject) => {
-      this.userToToken(user).then((token) => {
-        const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
-        });
-
-        this.http.get(this.baseUrl + '/getPendingMedia', {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
@@ -655,6 +645,45 @@ export class CloudFunctions {
       } else {
         reject();
       }
+    });
+  }
+
+  public getPendingMedia(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.get(this.baseUrl + '/getPendingMedia', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public deletePendingMedia(user: User, media: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': media
+        });
+
+        this.http.delete(
+          this.baseUrl + '/deletePendingMedia',
+           {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
     });
   }
 

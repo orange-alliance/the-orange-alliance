@@ -2,18 +2,18 @@
   <div class="col-12 col-md-6 pe-md-2 mb-3">
     <div class="account-card col-12">
       <div mdcHeadline5>{{ 'pages.account.division_tab.create_league' | translate }}</div>
-        <mdc-text-field #league_key dense [label]="'pages.account.division_tab.create_league_fields.league_key' | translate" class="w-100 mb-1">
-          <mdc-icon mdcTextFieldIcon leading svgIcon="key"></mdc-icon>
-        </mdc-text-field>
-        <mdc-select *ngIf="currentRegion"  [placeholder]="'pages.account.create_event_card.region' | translate" (selectionChange)="onRegionChange($event)" class="w-100 mb-1">
-          <option disabled></option>
-          <option *ngFor="let region of regions" [value]="region.regionKey">
-            {{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}
-          </option>
-        </mdc-select>
-        <mdc-text-field #league_description dense [label]="'pages.account.division_tab.create_league_fields.league_description' | translate" class="w-100 mb-1">
-          <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
-        </mdc-text-field>
+      <mdc-text-field #league_key dense [label]="'pages.account.division_tab.create_league_fields.league_key' | translate" class="w-100 mb-1">
+        <mdc-icon mdcTextFieldIcon leading svgIcon="key"></mdc-icon>
+      </mdc-text-field>
+      <mdc-select *ngIf="currentRegion"  [placeholder]="'pages.account.create_event_card.region' | translate" (selectionChange)="onRegionChange($event)" class="w-100 mb-1">
+        <option disabled></option>
+        <option *ngFor="let region of regions" [value]="region.regionKey">
+          {{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}
+        </option>
+      </mdc-select>
+      <mdc-text-field #league_description dense [label]="'pages.account.division_tab.create_league_fields.league_description' | translate" class="w-100 mb-1">
+        <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
+      </mdc-text-field>
       <button mdc-button primary (click)="createLeague()" class="mt-3">{{ 'pages.account.create_event_card.create' | translate }}</button>
     </div>
   </div>

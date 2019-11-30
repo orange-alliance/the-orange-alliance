@@ -74,6 +74,9 @@
           <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="calendar"></mdc-icon>{{ "drawer.events" | translate }}
           </a>
+			<a mdc-list-item routerLink="/regions" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
+            <mdc-icon mdcListItemGraphic svgIcon="compass"></mdc-icon>{{ "drawer.regions" | translate }}
+          </a>
           <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="video"></mdc-icon>{{ "drawer.streaming" | translate }}
           </a>

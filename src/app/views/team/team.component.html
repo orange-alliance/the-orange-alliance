@@ -42,6 +42,11 @@
               <li class="nav-item text-primary"><a *ngFor="let event of team.events" (click)="scrollToEvent(event.eventKey)" class="nav-link">{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a></li>
             </ul>
           </li>
+		  <li class="nav-item text-primary">
+            <a (click)="scrollToEvent('insights')">{{ 'pages.team.team_insights' | translate }}</a>
+            <ul class="nav flex-column p-0">
+			</ul>
+          </li>
         </ul>
       </div>
     </mdc-card>
@@ -105,6 +110,34 @@
       </div>
     </mdc-card>
 
+    <mdc-card class="toa-card overflow" *ngIf="user != null">
+      <h3>{{'pages.team.add_team_data.title' | translate }}</h3>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_logo' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.image_link' | translate}}" [(ngModel)]="logoLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendTeamLogo()">{{'pages.team.add_team_data.submit' | translate }}</button>
+      </div>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_reveal' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.youtube_title' | translate}}" [(ngModel)]="youtubeTitle"></mdc-text-field>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.youtube_link' | translate}}" [(ngModel)]="youtubeLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendReveal()">{{'pages.team.add_team_data.submit' | translate }}</button>
+        <!-- <button mdc-button primary class="ml-2 mr-2" style="height: 48px"  *ngIf="!uploadingVideos && showConfirm">{{ 'pages.team.add_team_data.submit' | translate }}</button> -->
+      </div>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_robo' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.image_title' | translate}}" [(ngModel)]="imageTitle"></mdc-text-field>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.image_link' | translate}}" [(ngModel)]="imageLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendRoboPic()">{{'pages.team.add_team_data.submit' | translate }}</button>
+      </div>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_cad' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.cad_title' | translate}}" [(ngModel)]="cadTitle"></mdc-text-field>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.cad_link' | translate}}" [(ngModel)]="cadLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendCad()">{{'pages.team.add_team_data.submit' | translate }}</button>
+      </div>
+    </mdc-card>
+
     <div class="col-12 d-md-none mt-3"
          *ngIf="currentSeason && seasons && seasons.length > 0 && team.rookieYear && team.rookieYear > 0">
       <mdc-card class="toa-card overflow">
@@ -141,5 +174,60 @@
         </div>
       </mdc-card>
     </div>
+
+    <!-- Team Insights -->
+    <mdc-card class="toa-card" id="insights">
+      <div class="d-flex align-items-center mb-1">
+        <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>Team Insights</div>
+        <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">#{{ team.teamNumber }} - {{ team.teamNameShort }} - {{ getSeasonString(currentSeason.seasonKey, false) }} season</div>
+      </div>
+      <mdc-list-divider></mdc-list-divider>
+      <div class="p-3">
+        <div class="info-state">
+          <mdc-icon svgIcon="basket-fill"></mdc-icon>
+          <p>{{ 'pages.team.total_skystones' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="bridge"></mdc-icon>
+          <p>{{ 'pages.team.auto_bridge_skystones' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="controller-classic"></mdc-icon>
+          <p>{{ 'pages.team.driver_bridge_skystones' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="cube-outline"></mdc-icon>
+          <p>{{ 'pages.team.auto_stones' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="remote"></mdc-icon>
+          <p>{{ 'pages.team.driver_stones' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="city-variant-outline"></mdc-icon>
+          <p>{{ 'pages.team.skyscraper_levels' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="parking"></mdc-icon>
+          <p>{{ 'pages.team.building_park' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="dump-truck"></mdc-icon>
+          <p>{{ 'pages.team.foundation_end' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+
+        <div class="info-state">
+          <mdc-icon svgIcon="flag-variant"></mdc-icon>
+          <p>{{ 'pages.team.capstones_placed' | translate: {'regionKey': team.regionKey} }}</p>
+        </div>
+      </div>
+    </mdc-card>
   </div>
 </div>

@@ -1,20 +1,20 @@
 <mdc-data-table class="w-100">
   <table mdcDataTableTable>
     <thead>
-      <tr mdcDataTableHeaderRow>
-        <th mdcDataTableHeaderCell>Alliance</th>
-        <th mdcDataTableHeaderCell>Captain</th>
-        <th mdcDataTableHeaderCell>Pick 1</th>
-        <th mdcDataTableHeaderCell *ngIf="showPick2">Pick 2</th>
-      </tr>
+    <tr mdcDataTableHeaderRow>
+      <th mdcDataTableHeaderCell>Alliance</th>
+      <th mdcDataTableHeaderCell>Captain</th>
+      <th mdcDataTableHeaderCell>Pick 1</th>
+      <th mdcDataTableHeaderCell *ngIf="showPick2">Pick 2</th>
+    </tr>
     </thead>
     <tbody mdcDataTableContent>
-      <tr mdcDataTableRow *ngFor="let alliance of alliances">
-        <th mdcDataTableCell>Alliance {{ alliance.seed }}</th>
-        <td mdcDataTableCell *ngIf="alliance.captain"><a class="currentColor" routerLink="/teams/{{ alliance.captain.teamKey }}">#{{ alliance.captain.teamNumber }}</a></td>
-        <td mdcDataTableCell *ngIf="alliance.pick1"><a class="currentColor" routerLink="/teams/{{ alliance.pick1.teamKey }}">#{{ alliance.pick1.teamNumber }}</a></td>
-        <td mdcDataTableCell *ngIf="alliance.pick2"><a class="currentColor" routerLink="/teams/{{ alliance.pick2.teamKey }}">#{{ alliance.pick2.teamNumber }}</a></td>
-      </tr>
+    <tr mdcDataTableRow *ngFor="let alliance of alliances">
+      <th mdcDataTableCell>Alliance {{ alliance.seed }}</th>
+      <td mdcDataTableCell *ngIf="alliance.captain"><a class="currentColor" routerLink="/teams/{{ alliance.captain.teamKey }}">#{{ alliance.captain.teamNumber }}</a></td>
+      <td mdcDataTableCell *ngIf="alliance.pick1"><a class="currentColor" routerLink="/teams/{{ alliance.pick1.teamKey }}">#{{ alliance.pick1.teamNumber }}</a></td>
+      <td mdcDataTableCell *ngIf="alliance.pick2"><a class="currentColor" routerLink="/teams/{{ alliance.pick2.teamKey }}">#{{ alliance.pick2.teamNumber }}</a></td>
+    </tr>
     </tbody>
   </table>
 </mdc-data-table>

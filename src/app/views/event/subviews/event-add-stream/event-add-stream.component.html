@@ -1,0 +1,37 @@
+<div class="outline-card">
+  <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.stream_card.add_stream' | translate }}</div>
+  <div>
+    <mdc-list>
+      <mdc-radio-group [(ngModel)]="streamType">
+        <mdc-form-field>
+          <mdc-list-item><mdc-radio mdcListItemGraphic value="Youtube" (change)="streamRadioClick('Youtube')"></mdc-radio>{{ 'pages.event.subpages.admin.stream_card.stream' | translate: { provider: 'YouTube'} }}</mdc-list-item>
+          <mdc-list-item><mdc-radio mdcListItemGraphic value="Twitch"  (change)="streamRadioClick('Twitch')"></mdc-radio>{{ 'pages.event.subpages.admin.stream_card.stream' | translate: { provider: 'Twitch'} }}</mdc-list-item>
+        </mdc-form-field>
+      </mdc-radio-group>
+    </mdc-list>
+  </div>
+  <div class="d-flex">
+    <div class="w-100 me-2">
+      <mdc-text-field #stream_url dense class="w-100" [label]="'pages.event.subpages.add_stream.stream_link' | translate">
+        <mdc-icon *ngIf="streamType === 'Youtube'" mdcTextFieldIcon leading svgIcon="youtube"></mdc-icon>
+        <mdc-icon *ngIf="streamType === 'Twitch'" mdcTextFieldIcon leading svgIcon="twitch"></mdc-icon>
+      </mdc-text-field>
+      <mdc-text-field #stream_name dense class="w-100 mt-2" [value]="eventData.eventName"
+                      [label]="'pages.event.subpages.admin.stream_card.stream_name' | translate"></mdc-text-field>
+    </div>
+    <button mdc-button primary class="mt-3" (click)="addStreamToPending()">{{ 'pages.event.subpages.admin.stream_card.link' | translate }}</button>
+  </div>
+</div>
+
+<!-- <div class="outline-card">
+  <div mdcHeadline5 class="black">{{ 'pages.event.subpages.add_stream.request_key.title' | translate }}</div>
+
+  <div class="d-flex">
+    <div class="w-100 me-2">
+      <p>{{ 'pages.event.subpages.add_stream.request_key.instructions' | translate }}</p>
+    </div>
+    <button mdc-button primary class="mt-3" (click)="requestStreamKey()">{{ 'pages.event.subpages.add_stream.request_key.send_request' | translate }}</button>
+  </div>
+  <br/>
+
+</div>  -->

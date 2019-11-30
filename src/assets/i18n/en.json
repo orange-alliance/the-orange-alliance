@@ -10,6 +10,8 @@
     "teams": "Teams",
     "event": "Event",
     "events": "Events",
+    "region": "Region",
+    "regions": "Regions",
     "match": "Match",
     "matches": "Matches",
     "live": "LIVE",
@@ -32,6 +34,7 @@
     "streaming": "Streaming",
     "android_app": "Android App",
     "ios_app": "iOS App",
+    "regions": "Regions",
     "add_data": "Add Data",
     "api": "API",
     "github": "GitHub",
@@ -49,6 +52,7 @@
   },
 
   "pages": {
+
     "add_data": {
       "title": "Add Data",
       "short_info": "Do you have some data you'd like to add to The Orange Alliance?",
@@ -75,6 +79,7 @@
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
       "division_tab": {
+        "manage_pending_data": "Manage Pending Data",
         "manage_leagues": "Manage Leagues",
         "select_season": "Select Season",
         "create_league": "Create League",
@@ -96,6 +101,7 @@
         "blocked": "Notifications are blocked on this device",
         "help": "To disable notification blocking, click the lock icon to the left of the web address, click Site settings and change the notifications permission."
       },
+
       "api_card": {
         "title": "Build amazing things with our API",
         "your_key": "Here is your API Key:",
@@ -170,6 +176,39 @@
           "confirm_password": "Confirm password",
           "your_team": "Your team #",
           "sign_up": "Sign Up"
+        },
+        "pending_data": {
+          "title": "Manage Pending Data",
+          "team_data": {
+            "title": "Team Data",
+            "videos": "Videos",
+            "logos": "Logos",
+            "cads": "CAD Files",
+            "pictures": "Pictures"
+          },
+          "event_data": {
+            "title": "Event Data",
+            "pit_maps": "Pit Maps",
+            "schedules": "Schedules",
+            "venue_maps": "Venue Maps",
+            "images": "Pictures"
+          },
+          "streams": "Pending Streams",
+          "accept": "Accept",
+          "decline": "Decline",
+          "no_team": {
+            "videos": "No user submitted videos at this time",
+            "logos": "No user submitted logos at this time",
+            "images": "No user submitted pictures at this time",
+            "cads": "No user submitted CAD Files at this time"
+          },
+          "no_event": {
+            "pit_maps": "No user submitted pit maps at this time",
+            "schedules": "No user submitted schedules at this time",
+            "venue_maps": "No user submitted venue maps at this time",
+            "images": "No user submitted event pictures at this time"
+          },
+          "no_streams": "No pending streams at this time"
         }
       }
     },
@@ -214,11 +253,178 @@
         "failed": "Saving event settings failed. Please try again later"
       },
       "subpages": {
+        "add_data": {
+          "title": "Add Event Data",
+          "pits_map": "Add Pits Map",
+          "pits_link": "Imgur Link",
+          "schedule": "Add Schedule",
+          "schedule_link": "Imgur Link",
+          "venue_map": "Add Venue Map",
+          "venue_link": "Imgur Link",
+          "event_photo": "Add Event Photo",
+          "image_title": "Image Title",
+          "photo_link": "Imgur Link"
+        },
         "rankings": {
           "title": "Rankings",
           "rank": "Rank",
           "team": "Team",
           "wlt_record": "W-L-T",
+          "qual_points": "Qualification Points",
+          "ranking_points": "Ranking Points",
+          "tie_reaker_points": "Tie Breaker Points",
+          "highest_score": "Highest Score",
+          "matches_played": "Matches Played",
+          "what_is_opr": "Offensive Power Rating, also know as OPR, is a stat that is often used in the FIRST community to compare the performance of teams on the field. OPRs are an interesting way to slice the data for teams at particular events, but aren't a perfect system for assessing a team's performance or contribution."
+        },
+        "matches": {
+          "title": "Matches"
+        },
+        "teams": {
+          "title": "Teams"
+        },
+		"regions": {
+          "title": "Regions"
+        },
+        "alliances": {
+          "title": "Alliances"
+        },
+        "awards": {
+          "title": "Awards"
+        },
+        "insights": {
+          "title": "Insights",
+          "qual": "Qualification",
+          "playoff": "Playoff",
+          "high_score": "High Score",
+          "avg_score": "Average Score",
+          "avg_winning_score": "Average Win Score",
+          "avg_winning_margin": "Average Win Margin",
+          "prc_landed": "% of Landed Robots",
+          "prc_latched": "% of Latched Robots",
+          "prc_sampling": "% of Successful Samples",
+          "prc_claiming": "% of Depots Claimed",
+          "prc_parking": "% of Parked Robots",
+          "avg_golds": "Average # of Golds Minerals in Cargo Hold",
+          "avg_silvers": "Average # of Silvers Minerals in Cargo Hold",
+          "avg_depot": "Average # of Minerals in Depot"
+        },
+        "for-participants": {
+          "title": "For Participants",
+          "pits_map": "Pits Map",
+          "venue_map": "Venue Map",
+          "schedule": "Event Schedule"
+        },
+        "admin": {
+          "title": "Admin",
+          "playlist_card": {
+            "title": "Add match videos from a YouTube Playlist",
+            "playlist_url": "Playlist URL",
+            "load": "Load",
+            "confirm": "Confirm and Upload",
+            "successfully": "Successfully uploaded {{ value }} videos",
+            "error": "We could not find any match videos",
+            "invalid_url": "Invalid URL, we could not find a YouTube playlist"
+          },
+          "update_info_card": {
+            "title": "Edit Your Event Info",
+            "event_name": "Event Name",
+            "website": "Website",
+            "start_date": "Start Date",
+            "end_date": "End Date",
+            "venue": "Venue",
+            "city": "City",
+            "state": "State",
+            "country": "Country",
+            "update": "Update",
+            "upload": "Upload",
+            "image_only": "You can upload it only as an image",
+            "choose_image": "Choose image...",
+            "successfully": "Successfully updated the event info"
+          },
+          "stream_card": {
+            "add_stream": "Add Stream",
+            "unlink_stream": "Unlink Stream",
+            "currently_linked": "Currently Linked Stream",
+            "url": "{{ provider }} URL",
+            "stream_name": "Stream Name",
+            "link": "Link",
+            "unlink": "Unlink",
+            "stream": "{{ provider }} Stream",
+            "success_linked": "Successfully Linked Stream",
+            "success_unlinked": "Successfully Linked Stream"
+          },
+          "delete_card": {
+            "delete_event": "Delete Event",
+            "delete_failed": "Delete Failed",
+            "delete": "Delete",
+            "delete_all_data": "YOU WILL BE DELETING ALL DATA FROM THIS EVENT",
+            "delete_sure": "ARE YOU SURE YOU WANT TO DELETE THE EVENT",
+            "delete_final": "THIS WILL DELETE THE EVENT"
+          },
+          "verify_email": "Please verify your email and try again.",
+          "success_sent_verify_email": "Successfully sent a verification email."
+        },
+        "add_stream": {
+          "title": "Add Event Stream",
+          "youtube": "YouTube",
+          "twitch": "Twitch",
+          "stream_title": "Stream Title",
+          "stream_link": "Stream URL",
+          "submit": "Submit Stream",
+          "request_key": {
+            "title": "Request Stream Key",
+            "instructions": "Request access to one of the TOA Twitch stream keys to stream your event. The TOA Admins will get back to you shortly.",
+            "send_request": "Send Request",
+            "sent": "Stream Key request has been sent!"
+          }
+        }
+      }
+    },
+
+    "events": {
+      "filter_season": "Season",
+      "filter_region": "Region",
+      "filter": "Filter Options",
+      "clear_filter": "Clear Filter"
+    },
+
+    "match": {
+      "match_info": "Match Information",
+      "match_key": "Match Key",
+      "scheduled_time": "Scheduled Time",
+      "no_video": "No video available",
+      "add_one": "Add one"
+    },
+
+    "region": {
+      "event_info": "Event Information",
+      "game_info": "Game Information",
+      "view_website": "View event's website",
+      "event_key": "Event Key",
+      "stream_available": "Live Stream Available!",
+      "alliances_count": "{{ value }} Alliances",
+      "fields_count": "{{ value }} Fields",
+      "matches_per_team": "{{ value }} Matches per team",
+      "settings": {
+        "title": "Event Settings",
+        "favorite": "Favorite",
+        "favorite_summary": "You can save teams, events, and more for easy access by marking them as \"favorites\".",
+        "notification_settings": "Notification Settings",
+        "notification_settings_summary": "Subscribing to something lets you get a push notification whenever there is an update.",
+        "match_scores": "Match Scores",
+        "schedule_updated": "Match Schedule Posted",
+        "awards_posted": "Awards Posted",
+        "alliances_posted": "Alliance Selections",
+        "saved": "Your event settings have been saved successfully!",
+        "failed": "Saving event settings failed. Please try again later"
+      },
+      "subpages": {
+        "rankings": {
+          "title": "Rankings",
+          "rank": "Rank",
+          "team": "Team",
+          "wlt_record": "Record (W-L-T)",
           "qual_points": "Qualification Points",
           "ranking_points": "Ranking Points",
           "tie_reaker_points": "Tie Breaker Points",
@@ -310,23 +516,24 @@
           },
           "verify_email": "Please verify your email and try again.",
           "success_sent_verify_email": "Successfully sent a verification email."
+        },
+        "add_stream": {
+          "title": "Add Event Stream",
+          "youtube": "YouTube",
+          "twitch": "Twitch",
+          "stream_title": "Stream Title",
+          "stream_link": "Stream URL",
+          "submit": "Submit Stream"
         }
       }
     },
 
-    "events": {
+    "regions": {
       "filter_season": "Season",
       "filter_region": "Region",
       "filter": "Filter Options",
-      "clear_filter": "Clear Filter"
-    },
-
-    "match": {
-      "match_info": "Match Information",
-      "match_key": "Match Key",
-      "scheduled_time": "Scheduled Time",
-      "no_video": "No video available",
-      "add_one": "Add one"
+      "clear_filter": "Clear Filter",
+	  "title": "Regions"
     },
 
     "streams": {
@@ -350,16 +557,41 @@
     "team": {
       "team_info": "Team Information",
       "event_results": "Event Results",
+      "team_insights": "Team Insights",
       "part_of_region": "Part of the {{ regionKey }} Region",
       "website": "Website",
       "rookie_year": "Rookie Year",
       "last_active": "Last Active Season",
+      "total_skystones": "Skystones Delivered:",
+      "auto_bridge_skystones": "Skystones Delivered Under Skybridge (Autonomous):",
+      "driver_bridge_skystones": "Skystones Delivered Under Skybridge (Driver-Controlled):",
+      "skyscraper_levels": "Skyscraper Levels Built:",
+      "foundation_end": "Points Earned Moving Foundation from Building Site:",
+      "capstones_placed": "Capstones Placed on Skyscraper:",
+      "auto_stones": "Stones Placed on Foundation (Autonomous):",
+      "driver_stones": "Stones Placed on Foundation (Driver-Controlled):",
+      "building_park": "# of Robots Parked in Building Site:",
       "awards_in_season": "{{ awards }} awards in {{ season }}",
       "robot_profile": {
         "title": "Robot",
         "engineering_notebook": "Engineering Notebook",
         "robot_reveal": "Robot Reveal",
         "photos": "Photos"
+      },
+      "add_team_data": {
+        "title": "Add Team Data",
+        "add_logo": "Add a logo to the team page",
+        "add_robo": "Add pictures of robots to Team Page",
+        "add_youtube": "Add YouTube Video to Team Playlist",
+        "add_cad": "Add CAD file to Team Page",
+        "add_reveal": "Add Youtube Video of Robot Reveal",
+        "submit": "Submit",
+        "youtube_title": "Video Title",
+        "youtube_link": "YouTube Video URL",
+        "image_title": "Image Title",
+        "image_link": "Imgur URL",
+        "cad_title": "GrabCAD Title",
+        "cad_link": "GrabCAD URL"
       }
     },
 
